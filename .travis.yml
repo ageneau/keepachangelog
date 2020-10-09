@@ -1,6 +1,0 @@
-language: clojure
-script:
-- lein ancient
-- lein cloverage --codecov
-after_success:
-  - bash <(curl -s https://codecov.io/bash) -f target/coverage/codecov.json

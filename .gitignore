@@ -1,7 +1,6 @@
 /target
 /classes
 /checkouts
-pom.xml
 pom.xml.asc
 *.jar
 *.class
@@ -9,3 +8,4 @@ pom.xml.asc
 /.nrepl-port
 /.idea
 /*.iml
+.cpcache

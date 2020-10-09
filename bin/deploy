@@ -1,0 +1,26 @@
+#! /bin/bash
+
+source ./bin/common.sh
+
+function usage {
+  echo usage:" ${0##*/}" >&2
+  exit 2
+}
+
+if [ "$#" -ne 0 ]; then
+  usage
+fi
+
+JAR="./target/${ARTIFACT_ID}-${VERSION}.jar"
+$CLOJURE -X:jar :jar '"'"$JAR"'"'
+
+if [ -z "$CLOJARS_USERNAME" ]; then
+  echo "CLOJARS_USERNAME environment variable not set"
+  exit 2
+elif [ -z "$CLOJARS_PASSWORD" ]; then
+  echo "CLOJARS_PASSWORD environment variable not set"
+  exit 2
+fi
+
+check-file "${POM_FILE}"
+$CLOJURE -M:deploy "$JAR"

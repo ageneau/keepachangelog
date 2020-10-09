@@ -1,0 +1,8 @@
+#! /bin/bash
+
+source ./bin/common.sh
+
+NEW_VERSION=$1
+$POM set version "${NEW_VERSION}"
+$CLOJURE -Spom
+$CLOJURE -M -m changelog.main release "${NEW_VERSION}"

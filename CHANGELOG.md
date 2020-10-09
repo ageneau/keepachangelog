@@ -7,33 +7,29 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
-
-## [0.3.2] — 2018-09-03
-### Fixed
-- A typo in _CHANGELOG.md_ template.
-
-## [0.3.1] — 2018-09-03
 ### Changed
-- _CHANGELOG.md_ template: `lein changelog init` now generates _CHANGELOG.md_ with latest released version in place.
-- Use long dash in section titles.
-
-## [0.3.0] — 2018-09-03
+- Fork from https://github.com/dryewo/lein-changelog/commit/2a50a8a267bac7710c5689447e597032aefa498a
+- Remove dependency on lein and make it a standalone tool
+- Rename leiningen.changelog to changelog.main
+- Update .gitignore
+- Update README
 ### Added
-- New subcommand: `lein changelog init` to create _CHANGELOG.md_ file.
+- fresh _CHANGELOG.md_ created.
+- Copy the functions from lein needed by the current code
+- Use kaocha for unit testing
+- Use kaocha-cloverage for code coverage
+- Add some scripts for making new releases and a Makefile
+- Add deps.edn
+- Add pom.xml
+- Add github workflow for testing
 ### Fixed
-- Exception was thrown by `lein changelog release` when _CHANGELOG.md_ didn't exist.
+- Fix issue with main not exiting
+### Removed
+- project.clj
+- travis support
 
-## [0.2.2] — 2018-08-26
-### Fixed
-- Added proper changelog :)
-
-## 0.2.0 — 2018-08-26
-### Added
-- Implemented `release` subtask.
+## 0.0.0 — 2020-10-09
+Released without _CHANGELOG.md_.
 
 
-[0.2.2]: https://github.com/dryewo/lein-changelog/compare/0.2.0...0.2.2
-[0.3.0]: https://github.com/dryewo/lein-changelog/compare/0.2.2...0.3.0
-[0.3.1]: https://github.com/dryewo/lein-changelog/compare/0.3.0...0.3.1
-[0.3.2]: https://github.com/dryewo/lein-changelog/compare/0.3.1...0.3.2
-[Unreleased]: https://github.com/dryewo/lein-changelog/compare/0.3.2...HEAD
+[Unreleased]: https://github.com/ageneau/keepachangelog/compare/0.0.0...HEAD

@@ -1,0 +1,87 @@
+#! /bin/bash
+
+POM_FILE=pom.xml
+JSON_KEYS=(artifactId name groupId version)
+
+function get-value {
+  xmllint --xpath '/*[local-name()="project"]/*[local-name()="'"$1"'"]/text()' "$2"
+}
+
+function set-value {
+  xmllint --shell "$3" << EOF
+cd /*[local-name()="project"]/*[local-name()="$1"]
+set $2
+save
+EOF
+}
+
+function usage {
+  echo usage:" ${0##*/} [get|set|json] [<args>]" >&2
+  exit 2
+}
+
+function check-file {
+  if [ ! -f "$1" ]; then
+    echo "No such file: $1" >&2
+    exit 2
+  fi
+}
+
+function join-strings {
+  local SEP=$1
+  shift
+  i=1
+  while [ $i -lt $# ]; do
+    printf "%s%s" "${!i}" "$SEP"
+    i=$(( i + 1 ))
+  done
+  printf "%s" "${!i}"
+}
+
+if [ "$#" -lt 1 ]; then
+    usage
+fi
+
+case $1 in
+  set)
+    if [ "$#" -gt 4 ]; then
+      echo usage:" ${0##*/} set id value [POM_FILE]" >&2
+      exit 2
+    elif [ "$#" = 4 ]; then
+      POM_FILE=$4
+    fi
+    check-file "${POM_FILE}"
+    set-value "$2" "$3" "${POM_FILE}" 1>/dev/null
+    ;;
+  get)
+    if [ "$#" -gt 3 ]; then
+      echo usage:" ${0##*/} get id [POM_FILE]" >&2
+      exit 2
+    elif [ "$#" = 3 ]; then
+      POM_FILE=$3
+      check-file "${POM_FILE}"
+    else
+      check-file "${POM_FILE}"
+    fi
+    printf "%s\n" "$(get-value "$2" "${POM_FILE}")"
+    ;;
+  json)
+    if [ "$#" -gt 2 ]; then
+      echo usage:" ${0##*/} json [POM_FILE]" >&2
+      exit 2
+    elif [ "$#" = 2 ]; then
+      POM_FILE=$2
+    fi
+    check-file "${POM_FILE}"
+    declare -A ARR
+    for key in "${JSON_KEYS[@]}"; do
+      ARR[$key]="\"$key\":\"$(get-value "${key}" "${POM_FILE}")\""
+    done
+    printf '{'
+    join-strings ", " "${ARR[@]}"
+    printf '}\n'
+    ;;
+  *)
+    usage
+    ;;
+esac
