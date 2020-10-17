@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
+
+## [0.1.0] — 2020-10-17
 ### Changed
 - Fork from https://github.com/dryewo/lein-changelog/commit/2a50a8a267bac7710c5689447e597032aefa498a
 - Remove dependency on lein and make it a standalone tool
@@ -32,4 +34,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 Released without _CHANGELOG.md_.
 
 
-[Unreleased]: https://github.com/ageneau/keepachangelog/compare/0.0.0...HEAD
+[0.1.0]: https://github.com/ageneau/keepachangelog/compare/0.0.0...0.1.0
+[Unreleased]: https://github.com/ageneau/keepachangelog/compare/0.1.0...HEAD
