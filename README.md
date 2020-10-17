@@ -104,6 +104,23 @@ initial-blah
 [Unreleased]: https://github.com/your-name/your-repo/compare/0.2.0...HEAD
 ```
 
+## `clojure -X` Usage
+
+The Clojure CLI added an `-X` option (in 1.10.1.697) to execute a specific function and pass a hash map of arguments. See [Executing a function that takes a map](https://clojure.org/reference/deps_and_cli#_executing_a_function) in the Deps and CLI reference for details.
+
+This is supported this via `changelog.main/run` which accepts a hash map that mirrors the available command-line arguments:
+
+* `:task` -- can be "init" or "release".
+* `:version` -- when task is "init" specifies the initial release and when task is "release" specifies the new version to be released.
+
+The following commands are equivalent:
+
+```bash
+clojure -M:changelog release '0.1.0'
+
+clojure -X:changelog changelog.main/run :task '"release"' :version '"0.1.0"'
+```
+
 ### Changelog format
 
 This tool relies on the format described on [Keep a Changelog], but the only required parts here are:
